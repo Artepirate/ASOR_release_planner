@@ -15,16 +15,18 @@
   .zone-legend{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
   .zl-pill{display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
   .zl-dot{width:8px;height:8px;border-radius:50%;}
-  .col-headers{display:grid;grid-template-columns:44px 1fr 88px 140px 60px;gap:8px;margin-bottom:6px;}
+  .col-headers{display:grid;grid-template-columns:44px 1fr 100px 140px 60px;gap:8px;margin-bottom:6px;}
   .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 4px;}
   .blocks-area{margin-bottom:16px;}
-  .block-row{display:grid;grid-template-columns:44px 1fr 88px 140px 60px;gap:8px;align-items:center;margin-bottom:4px;}
+  .block-row{display:grid;grid-template-columns:44px 1fr 100px 140px 60px;gap:8px;align-items:center;margin-bottom:4px;}
   .track-num{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Roboto Mono',monospace;font-size:12px;padding:7px 6px;outline:none;width:100%;text-align:center;}
   .track-num:focus{border-color:var(--sg);color:var(--sw);}
   .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
   .block-row input[type=text]:focus{border-color:var(--sg);}
   .dur-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 10px;outline:none;width:100%;text-align:right;}
   .dur-input:focus{border-color:var(--sg);}
+  .dur-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
+  .dur-select:focus{border-color:var(--sg);}
   .zone-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
   .row-actions{display:flex;gap:4px;}
   .del-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:14px;padding:5px 7px;line-height:1;flex:1;}
@@ -72,7 +74,7 @@
       <button class="unit-btn" id="btn-mins" onclick="setUnit('mins')">MINS</button>
       <button class="unit-btn" id="btn-secs" onclick="setUnit('secs')">SECS</button>
       <button class="unit-btn active" id="btn-beats" onclick="setUnit('beats')">BEATS</button>
-      <span class="unit-label" id="unit-hint">e.g. 32 = 4×8</span>
+      <span class="unit-label" id="unit-hint">e.g. 4×8 = 32 beats</span>
     </div>
     <div class="zone-legend">
       <span class="zl-pill"><span class="zl-dot" style="background:#FFF;border:1px solid #555"></span>SRC</span>
@@ -87,7 +89,7 @@
   <div class="col-headers">
     <span class="col-h">#</span>
     <span class="col-h">BLOCK / TRACK</span>
-    <span class="col-h" id="col-unit-label" style="text-align:right">BEATS</span>
+    <span class="col-h" id="col-unit-label" style="text-align:right;padding-right:12px">BEATS</span>
     <span class="col-h">ZONE</span>
     <span class="col-h"></span>
   </div>
@@ -115,18 +117,48 @@
 </div>
 
 <script>
-const ZONES={SRC:{label:'SRC',color:'#FFFFFF',text:'#000000'},Easy:{label:'EASY',color:'#4472C4',text:'#FFFFFF'},Mod:{label:'MOD',color:'#70AD47',text:'#FFFFFF'},Hard:{label:'HARD',color:'#FFC000',text:'#000000'},VHard:{label:'V HARD',color:'#FF6347',text:'#FFFFFF'},AllOut:{label:'ALL OUT',color:'#DC143C',text:'#FFFFFF'}};
+const ZONES = {
+  SRC:   {label:'SRC',    color:'#FFFFFF', text:'#000000'},
+  Easy:  {label:'EASY',   color:'#4472C4', text:'#FFFFFF'},
+  Mod:   {label:'MOD',    color:'#70AD47', text:'#FFFFFF'},
+  Hard:  {label:'HARD',   color:'#FFC000', text:'#000000'},
+  VHard: {label:'V HARD', color:'#FF6347', text:'#FFFFFF'},
+  AllOut:{label:'ALL OUT', color:'#DC143C', text:'#FFFFFF'},
+};
 
-let blockId=0, blocks=[], unit='beats';
+const BEATS_OPTS = [
+  {label:'½×8',   val:4},
+  {label:'1×8',   val:8},
+  {label:'1½×8',  val:12},
+  {label:'2×8',   val:16},
+  {label:'2½×8',  val:20},
+  {label:'3×8',   val:24},
+  {label:'3½×8',  val:28},
+  {label:'4×8',   val:32},
+  {label:'4½×8',  val:36},
+  {label:'5×8',   val:40},
+  {label:'5½×8',  val:44},
+  {label:'6×8',   val:48},
+  {label:'6½×8',  val:52},
+  {label:'7×8',   val:56},
+  {label:'8×8',   val:64},
+  {label:'9×8',   val:72},
+  {label:'10×8',  val:80},
+  {label:'12×8',  val:96},
+  {label:'16×8',  val:128},
+];
 
-const UNIT_CONFIG={
-  mins:  { label:'MINS',  hint:'e.g. 3 = 3 minutes', col:'MINS',  default:3,  step:1,  fmt:(v)=>v+'m',       total:(v)=>{ const m=Math.floor(v),s=Math.round((v-m)*60); return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
-  secs:  { label:'SECS',  hint:'e.g. 90 = 1:30',     col:'SECS',  default:30, step:5,  fmt:(v)=>v+'s',       total:(v)=>{ const m=Math.floor(v/60),s=v%60; return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
-  beats: { label:'BEATS', hint:'e.g. 32 = 4×8',      col:'BEATS', default:32, step:8,  fmt:(v)=>fmtBeats(v), total:(v)=>v+' beats', totalLabel:'TOTAL BEATS' },
+let blockId = 0, blocks = [], unit = 'beats';
+
+const UNIT_CONFIG = {
+  mins:  {label:'MINS',  hint:'e.g. 3 = 3 minutes', col:'MINS',  default:3,  step:1, fmt:(v)=>v+'m',       total:(v)=>{ const m=Math.floor(v),s=Math.round((v-m)*60); return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION'},
+  secs:  {label:'SECS',  hint:'e.g. 90 = 1:30',     col:'SECS',  default:30, step:5, fmt:(v)=>v+'s',       total:(v)=>{ const m=Math.floor(v/60),s=v%60; return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION'},
+  beats: {label:'BEATS', hint:'e.g. 4×8 = 32 beats', col:'BEATS', default:32, step:8, fmt:(v)=>fmtBeats(v), total:(v)=>v+' beats', totalLabel:'TOTAL BEATS'},
 };
 
 function fmtBeats(v) {
-  return (v % 8 === 0) ? (v/8)+'×8' : v+'b';
+  const opt = BEATS_OPTS.find(o => o.val === v);
+  return opt ? opt.label : v + 'b';
 }
 
 function beatsToTime(beats, bpm) {
@@ -137,15 +169,27 @@ function beatsToTime(beats, bpm) {
   return m + ':' + String(s).padStart(2, '0');
 }
 
+function makeDurEl(id, b) {
+  if (unit === 'beats') {
+    const opts = BEATS_OPTS.map(o =>
+      `<option value="${o.val}"${o.val === b.dur ? ' selected' : ''}>${o.label}</option>`
+    ).join('');
+    return `<select class="dur-select" onchange="upd(${id},'dur',parseFloat(this.value))">${opts}</select>`;
+  }
+  const cfg = UNIT_CONFIG[unit];
+  return `<input class="dur-input" type="number" value="${b.dur}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />`;
+}
+
 function setUnit(u) {
   unit = u;
   ['mins','secs','beats'].forEach(k => document.getElementById('btn-'+k).classList.toggle('active', k===u));
   const cfg = UNIT_CONFIG[u];
   document.getElementById('unit-hint').textContent = cfg.hint;
   document.getElementById('col-unit-label').textContent = cfg.col;
-  document.querySelectorAll('.dur-input').forEach((inp, i) => {
-    inp.step = cfg.step;
-    inp.value = blocks[i] ? blocks[i].dur : cfg.default;
+  blocks.forEach(b => {
+    b.dur = cfg.default;
+    const wrap = document.getElementById('dur-wrap-'+b.id);
+    if (wrap) wrap.innerHTML = makeDurEl(b.id, b);
   });
   render();
 }
@@ -155,7 +199,8 @@ function addBlock() {
   const id = blockId;
   const cfg = UNIT_CONFIG[unit];
   const trackNum = blocks.length + 1;
-  blocks.push({ id, trackNum, name:'', dur: cfg.default, zone:'Mod', bpm:'', cue:'', detailOpen:false });
+  blocks.push({id, trackNum, name:'', dur:cfg.default, zone:'Mod', bpm:'', cue:'', detailOpen:false});
+  const b = blocks[blocks.length - 1];
 
   const row = document.createElement('div');
   row.className = 'block-row';
@@ -168,22 +213,22 @@ function addBlock() {
     <div class="detail-inner">
       <div class="bpm-line">
         <span class="bpm-label">BPM</span>
-        <input class="bpm-input" type="number" min="60" max="200" step="1" placeholder="128" oninput="upd(${id},'bpm',parseFloat(this.value)||0)" />
+        <input class="bpm-input" type="number" min="60" max="220" step="1" placeholder="128" oninput="upd(${id},'bpm',parseFloat(this.value)||0)" />
         <span class="bpm-calc" id="bc-${id}"></span>
       </div>
       <textarea class="cue-input" placeholder="coaching cue..." oninput="upd(${id},'cue',this.value)"></textarea>
     </div>
   `;
 
-  const opts = Object.entries(ZONES).map(([k,v]) =>
+  const zoneOpts = Object.entries(ZONES).map(([k,v]) =>
     `<option value="${k}">${v.label}</option>`
   ).join('');
 
   row.innerHTML = `
     <input class="track-num" type="text" value="${trackNum}" oninput="upd(${id},'trackNum',this.value)" />
     <input type="text" placeholder="e.g. Warm Up" oninput="upd(${id},'name',this.value)" />
-    <input class="dur-input" type="number" value="${cfg.default}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />
-    <select class="zone-select" onchange="upd(${id},'zone',this.value)">${opts}</select>
+    <div id="dur-wrap-${id}">${makeDurEl(id, b)}</div>
+    <select class="zone-select" onchange="upd(${id},'zone',this.value)">${zoneOpts}</select>
     <div class="row-actions">
       <button class="cue-toggle" id="ct-${id}" onclick="toggleDetail(${id})">▾</button>
       <button class="del-btn" onclick="rmBlock(${id})">×</button>
@@ -197,7 +242,7 @@ function addBlock() {
 }
 
 function toggleDetail(id) {
-  const b = blocks.find(x=>x.id===id);
+  const b = blocks.find(x => x.id === id);
   if (!b) return;
   b.detailOpen = !b.detailOpen;
   document.getElementById('dr-'+id).classList.toggle('open', b.detailOpen);
@@ -205,20 +250,19 @@ function toggleDetail(id) {
 }
 
 function upd(id, field, val) {
-  const b = blocks.find(x=>x.id===id);
+  const b = blocks.find(x => x.id === id);
   if (!b) return;
   b[field] = val;
   if (field === 'zone') {
-    const row = document.getElementById('br-'+id);
-    const sel = row.querySelector('select');
+    const sel = document.querySelector('#br-'+id+' .zone-select');
     const z = ZONES[val];
     sel.style.background = z.color;
     sel.style.color = z.text;
     sel.style.borderColor = z.color;
   }
-  if (field === 'bpm' || field === 'dur') {
+  if ((field === 'bpm' || field === 'dur') && unit === 'beats') {
     const calc = document.getElementById('bc-'+id);
-    if (calc && unit === 'beats') {
+    if (calc) {
       const t = beatsToTime(b.dur, b.bpm);
       calc.textContent = t ? '= ' + t : '';
     }
@@ -227,7 +271,7 @@ function upd(id, field, val) {
 }
 
 function rmBlock(id) {
-  blocks = blocks.filter(x=>x.id!==id);
+  blocks = blocks.filter(x => x.id !== id);
   document.getElementById('br-'+id)?.remove();
   document.getElementById('dr-'+id)?.remove();
   render();
@@ -235,18 +279,14 @@ function rmBlock(id) {
 
 function render() {
   const cfg = UNIT_CONFIG[unit];
-  const total = blocks.reduce((s,b)=>s+(b.dur||0), 0);
+  const total = blocks.reduce((s, b) => s + (b.dur || 0), 0);
 
-  // refresh all bpm calc displays when unit changes
   blocks.forEach(b => {
     const calc = document.getElementById('bc-'+b.id);
     if (calc) {
-      if (unit === 'beats') {
-        const t = beatsToTime(b.dur, b.bpm);
-        calc.textContent = t ? '= ' + t : '';
-      } else {
-        calc.textContent = '';
-      }
+      calc.textContent = (unit === 'beats' && b.bpm > 0)
+        ? '= ' + (beatsToTime(b.dur, b.bpm) || '')
+        : '';
     }
   });
 
@@ -269,10 +309,9 @@ function render() {
   document.getElementById('stats').innerHTML = Object.entries(ZONES).map(([k,v]) => {
     const t = zoneTotals[k];
     const pct = total > 0 ? Math.round((t / total) * 100) : 0;
-    const display = t > 0 ? cfg.fmt(t) : '—';
     return `<div class="stat-card">
       <div class="stat-zone" style="color:${v.color}">${v.label}</div>
-      <div class="stat-val">${display}</div>
+      <div class="stat-val">${t > 0 ? cfg.fmt(t) : '—'}</div>
       <div class="stat-unit">${t > 0 ? pct + '%' : ''}</div>
     </div>`;
   }).join('');
@@ -280,12 +319,10 @@ function render() {
   document.getElementById('total-disp').textContent = total > 0 ? cfg.total(total) : '—';
   document.getElementById('total-label').textContent = cfg.totalLabel;
 
-  // total real time from BPM (beats mode only, when all blocks have BPM)
   const timeWrap = document.getElementById('total-time-wrap');
   if (unit === 'beats' && blocks.length > 0) {
     const totalSecs = blocks.reduce((s, b) => {
-      if (!b.bpm || b.bpm <= 0) return null;
-      if (s === null) return null;
+      if (s === null || !b.bpm || b.bpm <= 0) return null;
       return s + (b.dur / b.bpm) * 60;
     }, 0);
     if (totalSecs !== null && totalSecs > 0) {
