@@ -15,17 +15,26 @@
   .zone-legend{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
   .zl-pill{display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
   .zl-dot{width:8px;height:8px;border-radius:50%;}
-  .col-headers{display:grid;grid-template-columns:1fr 100px 140px 28px;gap:8px;margin-bottom:6px;}
+  .col-headers{display:grid;grid-template-columns:1fr 100px 140px 60px;gap:8px;margin-bottom:6px;}
   .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 10px;}
   .blocks-area{margin-bottom:16px;}
-  .block-row{display:grid;grid-template-columns:1fr 100px 140px 28px;gap:8px;align-items:center;margin-bottom:8px;}
+  .block-row{display:grid;grid-template-columns:1fr 100px 140px 60px;gap:8px;align-items:center;margin-bottom:4px;}
   .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
   .block-row input[type=text]:focus{border-color:var(--sg);}
   .dur-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 10px;outline:none;width:100%;text-align:right;}
   .dur-input:focus{border-color:var(--sg);}
   .zone-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
-  .del-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:14px;padding:5px 7px;line-height:1;}
+  .row-actions{display:flex;gap:4px;}
+  .del-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:14px;padding:5px 7px;line-height:1;flex:1;}
   .del-btn:hover{border-color:var(--sg);color:var(--sg);}
+  .cue-toggle{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:5px 7px;line-height:1;flex:1;letter-spacing:0.5px;}
+  .cue-toggle:hover{border-color:var(--sg);color:var(--sg);}
+  .cue-toggle.active{border-color:var(--sg);color:var(--sg);}
+  .cue-row{display:none;margin-bottom:8px;padding-left:0;}
+  .cue-row.open{display:block;}
+  .cue-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Inter',sans-serif;font-size:12px;padding:8px 10px;outline:none;width:100%;resize:vertical;min-height:52px;line-height:1.5;}
+  .cue-input:focus{border-color:var(--sg);}
+  .cue-input::placeholder{color:var(--sgr);}
   .add-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:8px 14px;cursor:pointer;margin-bottom:20px;}
   .add-btn:hover{border-color:var(--sg);color:var(--sg);}
   .tl-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sgr);margin-bottom:8px;}
@@ -36,12 +45,9 @@
   .stat-zone{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;margin-bottom:4px;}
   .stat-val{font-family:'Roboto Mono',monospace;font-size:16px;font-weight:500;color:var(--sw);}
   .stat-unit{font-family:'Inter',sans-serif;font-size:10px;color:var(--sgr);}
-  .footer-row{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--sbr);margin-top:16px;}
+  .footer-row{display:flex;justify-content:flex-start;align-items:center;padding-top:16px;border-top:1px solid var(--sbr);margin-top:16px;}
   .total-dur{font-family:'Roboto Mono',monospace;font-size:28px;color:var(--sg);}
   .total-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--sgr);margin-top:2px;}
-  .cue-btn{background:var(--sg);border:none;border-radius:4px;color:var(--sb);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 16px;cursor:pointer;}
-  .cue-btn:hover{opacity:0.85;}
-  .beat-hint{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--sgr);margin-left:4px;}
 </style>
 
 <div class="wrap">
@@ -90,7 +96,6 @@
       <div class="total-dur" id="total-disp">0</div>
       <div class="total-label" id="total-label">TOTAL BEATS</div>
     </div>
-    <button class="cue-btn" onclick="doCues()">WRITE COACHING CUES ↗</button>
   </div>
 </div>
 
@@ -130,11 +135,16 @@ function addBlock() {
   blockId++;
   const id = blockId;
   const cfg = UNIT_CONFIG[unit];
-  blocks.push({ id, name:'', dur: cfg.default, zone:'Mod' });
+  blocks.push({ id, name:'', dur: cfg.default, zone:'Mod', cue:'', cueOpen:false });
 
   const row = document.createElement('div');
   row.className = 'block-row';
   row.id = 'br-'+id;
+
+  const cueRow = document.createElement('div');
+  cueRow.className = 'cue-row';
+  cueRow.id = 'cue-'+id;
+  cueRow.innerHTML = `<textarea class="cue-input" placeholder="coaching cue..." oninput="upd(${id},'cue',this.value)"></textarea>`;
 
   const opts = Object.entries(ZONES).map(([k,v]) =>
     `<option value="${k}">${v.label}</option>`
@@ -144,11 +154,24 @@ function addBlock() {
     <input type="text" placeholder="e.g. Warm Up" oninput="upd(${id},'name',this.value)" />
     <input class="dur-input" type="number" value="${cfg.default}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />
     <select class="zone-select" onchange="upd(${id},'zone',this.value)">${opts}</select>
-    <button class="del-btn" onclick="rmBlock(${id})">×</button>
+    <div class="row-actions">
+      <button class="cue-toggle" id="ct-${id}" onclick="toggleCue(${id})" title="Coaching cue">CUE</button>
+      <button class="del-btn" onclick="rmBlock(${id})">×</button>
+    </div>
   `;
 
-  document.getElementById('blocks').appendChild(row);
+  const area = document.getElementById('blocks');
+  area.appendChild(row);
+  area.appendChild(cueRow);
   upd(id, 'zone', 'Mod');
+}
+
+function toggleCue(id) {
+  const b = blocks.find(x=>x.id===id);
+  if (!b) return;
+  b.cueOpen = !b.cueOpen;
+  document.getElementById('cue-'+id).classList.toggle('open', b.cueOpen);
+  document.getElementById('ct-'+id).classList.toggle('active', b.cueOpen);
 }
 
 function upd(id, field, val) {
@@ -170,6 +193,8 @@ function rmBlock(id) {
   blocks = blocks.filter(x=>x.id!==id);
   const row = document.getElementById('br-'+id);
   if (row) row.remove();
+  const cueRow = document.getElementById('cue-'+id);
+  if (cueRow) cueRow.remove();
   render();
 }
 
@@ -206,17 +231,6 @@ function render() {
 
   document.getElementById('total-disp').textContent = total>0 ? cfg.total(total) : '—';
   document.getElementById('total-label').textContent = cfg.totalLabel;
-}
-
-function doCues() {
-  const name = document.getElementById('rname').value||'untitled release';
-  const cfg = UNIT_CONFIG[unit];
-  const total = blocks.reduce((s,b)=>s+(b.dur||0),0);
-  const structure = blocks.map((b,i)=>
-    `Block ${i+1}: "${b.name||'unnamed'}" — ${cfg.fmt(b.dur)} — ${ZONES[b.zone].label}`
-  ).join(', ');
-  const unitWord = unit==='beats'?'beats (counted in 8s)':unit;
-  sendPrompt(`Write coaching cues for a RIDE release called "${name}" (${cfg.total(total)} total, measured in ${unitWord}). Structure: ${structure}. Write in Matty's voice — building clarity in motion, thinking out loud, analogies over jargon.`);
 }
 
 addBlock();
