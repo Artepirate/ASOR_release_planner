@@ -1,0 +1,226 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&family=Roboto+Mono:wght@500&display=swap');
+  :root { --sb:#0A0A0A;--ss:#1C1C1C;--sbr:#3A3A3A;--sg:#D4A574;--sv:#C0C0C0;--sw:#F5F5F0;--sgr:#7A7A72;--sm:#C8C8C0; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  .wrap{background:var(--sb);color:var(--sw);font-family:'Inter',sans-serif;padding:24px;min-height:400px;border-radius:8px;}
+  .header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:20px;border-bottom:1px solid var(--sbr);padding-bottom:16px;}
+  .release-name{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:var(--sw);background:transparent;border:none;outline:none;width:320px;}
+  .release-name::placeholder{color:var(--sbr);}
+  .ride-label{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:var(--sg);}
+  .unit-toggle{display:flex;gap:4px;margin-bottom:16px;align-items:center;}
+  .unit-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;cursor:pointer;}
+  .unit-btn.active{background:var(--sg);border-color:var(--sg);color:var(--sb);}
+  .unit-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--sgr);margin-left:6px;}
+  .zone-legend{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+  .zl-pill{display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
+  .zl-dot{width:8px;height:8px;border-radius:50%;}
+  .col-headers{display:grid;grid-template-columns:1fr 100px 140px 28px;gap:8px;margin-bottom:6px;}
+  .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 10px;}
+  .blocks-area{margin-bottom:16px;}
+  .block-row{display:grid;grid-template-columns:1fr 100px 140px 28px;gap:8px;align-items:center;margin-bottom:8px;}
+  .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
+  .block-row input[type=text]:focus{border-color:var(--sg);}
+  .dur-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 10px;outline:none;width:100%;text-align:right;}
+  .dur-input:focus{border-color:var(--sg);}
+  .zone-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
+  .del-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:14px;padding:5px 7px;line-height:1;}
+  .del-btn:hover{border-color:var(--sg);color:var(--sg);}
+  .add-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:8px 14px;cursor:pointer;margin-bottom:20px;}
+  .add-btn:hover{border-color:var(--sg);color:var(--sg);}
+  .tl-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sgr);margin-bottom:8px;}
+  .timeline{display:flex;height:36px;border-radius:4px;overflow:hidden;gap:2px;}
+  .tl-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;min-width:2px;transition:flex 0.2s;}
+  .stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px;}
+  .stat-card{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;padding:10px 8px;text-align:center;}
+  .stat-zone{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;margin-bottom:4px;}
+  .stat-val{font-family:'Roboto Mono',monospace;font-size:16px;font-weight:500;color:var(--sw);}
+  .stat-unit{font-family:'Inter',sans-serif;font-size:10px;color:var(--sgr);}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;padding-top:16px;border-top:1px solid var(--sbr);margin-top:16px;}
+  .total-dur{font-family:'Roboto Mono',monospace;font-size:28px;color:var(--sg);}
+  .total-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--sgr);margin-top:2px;}
+  .cue-btn{background:var(--sg);border:none;border-radius:4px;color:var(--sb);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 16px;cursor:pointer;}
+  .cue-btn:hover{opacity:0.85;}
+  .beat-hint{font-family:'Roboto Mono',monospace;font-size:10px;color:var(--sgr);margin-left:4px;}
+</style>
+
+<div class="wrap">
+  <div class="header">
+    <input class="release-name" type="text" id="rname" placeholder="RELEASE NAME">
+    <span class="ride-label">RIDE</span>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+    <div class="unit-toggle">
+      <span style="font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sgr);margin-right:4px;">UNIT</span>
+      <button class="unit-btn" id="btn-mins" onclick="setUnit('mins')">MINS</button>
+      <button class="unit-btn" id="btn-secs" onclick="setUnit('secs')">SECS</button>
+      <button class="unit-btn active" id="btn-beats" onclick="setUnit('beats')">BEATS</button>
+      <span class="unit-label" id="unit-hint">e.g. 32 = 4×8</span>
+    </div>
+    <div class="zone-legend">
+      <span class="zl-pill"><span class="zl-dot" style="background:#FFF;border:1px solid #555"></span>SRC</span>
+      <span class="zl-pill"><span class="zl-dot" style="background:#4472C4"></span>EASY</span>
+      <span class="zl-pill"><span class="zl-dot" style="background:#70AD47"></span>MOD</span>
+      <span class="zl-pill"><span class="zl-dot" style="background:#FFC000"></span>HARD</span>
+      <span class="zl-pill"><span class="zl-dot" style="background:#FF6347"></span>V HARD</span>
+      <span class="zl-pill"><span class="zl-dot" style="background:#DC143C"></span>ALL OUT</span>
+    </div>
+  </div>
+
+  <div class="col-headers">
+    <span class="col-h">BLOCK / TRACK</span>
+    <span class="col-h" id="col-unit-label" style="text-align:right">BEATS</span>
+    <span class="col-h">ZONE</span>
+    <span class="col-h"></span>
+  </div>
+
+  <div class="blocks-area" id="blocks"></div>
+  <button class="add-btn" onclick="addBlock()">+ ADD BLOCK</button>
+
+  <div style="margin-bottom:20px;">
+    <div class="tl-label">EFFORT SHAPE</div>
+    <div class="timeline" id="timeline"><div style="flex:1;background:#1C1C1C;border-radius:4px"></div></div>
+  </div>
+
+  <div class="stats-row" id="stats"></div>
+
+  <div class="footer-row">
+    <div>
+      <div class="total-dur" id="total-disp">0</div>
+      <div class="total-label" id="total-label">TOTAL BEATS</div>
+    </div>
+    <button class="cue-btn" onclick="doCues()">WRITE COACHING CUES ↗</button>
+  </div>
+</div>
+
+<script>
+const ZONES={SRC:{label:'SRC',color:'#FFFFFF',text:'#000000'},Easy:{label:'EASY',color:'#4472C4',text:'#FFFFFF'},Mod:{label:'MOD',color:'#70AD47',text:'#FFFFFF'},Hard:{label:'HARD',color:'#FFC000',text:'#000000'},VHard:{label:'V HARD',color:'#FF6347',text:'#FFFFFF'},AllOut:{label:'ALL OUT',color:'#DC143C',text:'#FFFFFF'}};
+
+let blockId=0, blocks=[], unit='beats';
+
+const UNIT_CONFIG={
+  mins:  { label:'MINS',  hint:'e.g. 3 = 3 minutes', col:'MINS',  default:3,  step:1,   fmt:(v)=>v+'m',          total:(v)=>{ const m=Math.floor(v),s=Math.round((v-m)*60); return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
+  secs:  { label:'SECS',  hint:'e.g. 90 = 1:30',     col:'SECS',  default:30, step:5,   fmt:(v)=>v+'s',          total:(v)=>{ const m=Math.floor(v/60),s=v%60; return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
+  beats: { label:'BEATS', hint:'e.g. 32 = 4×8',      col:'BEATS', default:32, step:8,   fmt:(v)=>fmtBeats(v),    total:(v)=>v+' beats',   totalLabel:'TOTAL BEATS' },
+};
+
+function fmtBeats(v) {
+  if (v % 8 === 0) {
+    const eights = v / 8;
+    return eights + '×8';
+  }
+  return v + 'b';
+}
+
+function setUnit(u) {
+  unit = u;
+  ['mins','secs','beats'].forEach(k => document.getElementById('btn-'+k).classList.toggle('active', k===u));
+  const cfg = UNIT_CONFIG[u];
+  document.getElementById('unit-hint').textContent = cfg.hint;
+  document.getElementById('col-unit-label').textContent = cfg.col;
+  document.querySelectorAll('.dur-input').forEach((inp, i) => {
+    inp.step = cfg.step;
+    inp.value = blocks[i] ? blocks[i].dur : cfg.default;
+  });
+  render();
+}
+
+function addBlock() {
+  blockId++;
+  const id = blockId;
+  const cfg = UNIT_CONFIG[unit];
+  blocks.push({ id, name:'', dur: cfg.default, zone:'Mod' });
+
+  const row = document.createElement('div');
+  row.className = 'block-row';
+  row.id = 'br-'+id;
+
+  const opts = Object.entries(ZONES).map(([k,v]) =>
+    `<option value="${k}">${v.label}</option>`
+  ).join('');
+
+  row.innerHTML = `
+    <input type="text" placeholder="e.g. Warm Up" oninput="upd(${id},'name',this.value)" />
+    <input class="dur-input" type="number" value="${cfg.default}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />
+    <select class="zone-select" onchange="upd(${id},'zone',this.value)">${opts}</select>
+    <button class="del-btn" onclick="rmBlock(${id})">×</button>
+  `;
+
+  document.getElementById('blocks').appendChild(row);
+  upd(id, 'zone', 'Mod');
+}
+
+function upd(id, field, val) {
+  const b = blocks.find(x=>x.id===id);
+  if (!b) return;
+  b[field] = val;
+  if (field==='zone') {
+    const row = document.getElementById('br-'+id);
+    const sel = row.querySelector('select');
+    const z = ZONES[val];
+    sel.style.background = z.color;
+    sel.style.color = z.text;
+    sel.style.borderColor = z.color;
+  }
+  render();
+}
+
+function rmBlock(id) {
+  blocks = blocks.filter(x=>x.id!==id);
+  const row = document.getElementById('br-'+id);
+  if (row) row.remove();
+  render();
+}
+
+function render() {
+  const cfg = UNIT_CONFIG[unit];
+  const total = blocks.reduce((s,b)=>s+(b.dur||0),0);
+
+  const tl = document.getElementById('timeline');
+  if (!blocks.length||total===0) {
+    tl.innerHTML='<div style="flex:1;background:#1C1C1C;border-radius:4px"></div>';
+  } else {
+    tl.innerHTML = blocks.map(b=>{
+      const z=ZONES[b.zone];
+      const pct=(b.dur/total)*100;
+      const label = pct>8 ? cfg.fmt(b.dur) : '';
+      return `<div class="tl-seg" style="flex:${pct};background:${z.color};color:${z.text}">${label}</div>`;
+    }).join('');
+  }
+
+  const zoneTotals={};
+  Object.keys(ZONES).forEach(k=>zoneTotals[k]=0);
+  blocks.forEach(b=>{ zoneTotals[b.zone]+=(b.dur||0); });
+
+  document.getElementById('stats').innerHTML = Object.entries(ZONES).map(([k,v])=>{
+    const t=zoneTotals[k];
+    const pct=total>0?Math.round((t/total)*100):0;
+    const display = t>0 ? cfg.fmt(t) : '—';
+    return `<div class="stat-card">
+      <div class="stat-zone" style="color:${v.color}">${v.label}</div>
+      <div class="stat-val">${display}</div>
+      <div class="stat-unit">${t>0?pct+'%':''}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('total-disp').textContent = total>0 ? cfg.total(total) : '—';
+  document.getElementById('total-label').textContent = cfg.totalLabel;
+}
+
+function doCues() {
+  const name = document.getElementById('rname').value||'untitled release';
+  const cfg = UNIT_CONFIG[unit];
+  const total = blocks.reduce((s,b)=>s+(b.dur||0),0);
+  const structure = blocks.map((b,i)=>
+    `Block ${i+1}: "${b.name||'unnamed'}" — ${cfg.fmt(b.dur)} — ${ZONES[b.zone].label}`
+  ).join(', ');
+  const unitWord = unit==='beats'?'beats (counted in 8s)':unit;
+  sendPrompt(`Write coaching cues for a RIDE release called "${name}" (${cfg.total(total)} total, measured in ${unitWord}). Structure: ${structure}. Write in Matty's voice — building clarity in motion, thinking out loud, analogies over jargon.`);
+}
+
+addBlock();
+addBlock();
+addBlock();
+render();
+</script>
