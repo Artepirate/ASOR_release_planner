@@ -170,12 +170,6 @@ function beatsToTime(beats, bpm) {
 }
 
 function makeDurEl(id, b) {
-  if (unit === 'beats') {
-    const opts = BEATS_OPTS.map(o =>
-      `<option value="${o.val}"${o.val === b.dur ? ' selected' : ''}>${o.label}</option>`
-    ).join('');
-    return `<select class="dur-select" onchange="upd(${id},'dur',parseFloat(this.value))">${opts}</select>`;
-  }
   const cfg = UNIT_CONFIG[unit];
   return `<input class="dur-input" type="number" value="${b.dur}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />`;
 }
