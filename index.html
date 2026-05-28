@@ -8,32 +8,33 @@
   .release-name{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:var(--sw);background:transparent;border:none;outline:none;width:320px;}
   .release-name::placeholder{color:var(--sbr);}
   .ride-label{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:4px;color:var(--sg);}
-  .unit-toggle{display:flex;gap:4px;margin-bottom:16px;align-items:center;}
+  .unit-toggle{display:flex;gap:4px;align-items:center;}
   .unit-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;cursor:pointer;}
   .unit-btn.active{background:var(--sg);border-color:var(--sg);color:var(--sb);}
   .unit-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--sgr);margin-left:6px;}
-  .zone-legend{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
-  .zl-pill{display:flex;align-items:center;gap:5px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
-  .zl-dot{width:8px;height:8px;border-radius:50%;}
-  .col-headers{display:grid;grid-template-columns:44px 1fr 100px 140px 60px;gap:8px;margin-bottom:6px;}
+  .zone-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .zl-band{display:flex;align-items:center;gap:2px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
+  .zl-swatch{width:6px;height:14px;border-radius:2px;}
+  .col-headers{display:grid;grid-template-columns:44px 1fr 100px 148px 72px;gap:8px;margin-bottom:6px;}
   .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 4px;}
-  .blocks-area{margin-bottom:16px;}
-  .block-row{display:grid;grid-template-columns:44px 1fr 100px 140px 60px;gap:8px;align-items:center;margin-bottom:4px;}
+  .blocks-area{margin-bottom:12px;}
+  .block-row{display:grid;grid-template-columns:44px 1fr 100px 148px 72px;gap:8px;align-items:center;margin-bottom:4px;}
   .track-num{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Roboto Mono',monospace;font-size:12px;padding:7px 6px;outline:none;width:100%;text-align:center;}
   .track-num:focus{border-color:var(--sg);color:var(--sw);}
   .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
   .block-row input[type=text]:focus{border-color:var(--sg);}
   .dur-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 10px;outline:none;width:100%;text-align:right;}
   .dur-input:focus{border-color:var(--sg);}
-  .dur-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
-  .dur-select:focus{border-color:var(--sg);}
-  .zone-select{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.5px;padding:7px 8px;outline:none;width:100%;cursor:pointer;}
-  .row-actions{display:flex;gap:4px;}
-  .del-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:14px;padding:5px 7px;line-height:1;flex:1;}
-  .del-btn:hover{border-color:var(--sg);color:var(--sg);}
-  .cue-toggle{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:5px 7px;line-height:1;flex:1;letter-spacing:0.5px;}
-  .cue-toggle:hover{border-color:var(--sg);color:var(--sg);}
-  .cue-toggle.active{border-color:var(--sg);color:var(--sg);}
+  .zone-wrap{display:flex;gap:3px;width:100%;}
+  .band-sel{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;padding:7px 3px;outline:none;flex:0 0 44px;cursor:pointer;text-align:center;}
+  .range-sel{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.3px;padding:7px 4px;outline:none;flex:1;cursor:pointer;}
+  .band-sel:focus,.range-sel:focus{border-color:var(--sg);}
+  .zone-dead{flex:1;background:#555;color:#AAA;border-radius:4px;padding:7px 8px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;text-align:center;letter-spacing:1px;}
+  .row-actions{display:flex;gap:3px;}
+  .act-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-size:12px;padding:5px 6px;line-height:1;flex:1;min-width:0;}
+  .act-btn:hover{border-color:var(--sg);color:var(--sg);}
+  .act-btn.active{border-color:var(--sg);color:var(--sg);}
+  .act-btn:disabled{opacity:0.25;cursor:default;pointer-events:none;}
   .detail-row{display:none;margin-bottom:8px;}
   .detail-row.open{display:block;}
   .detail-inner{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;padding:10px 12px;display:flex;flex-direction:column;gap:10px;}
@@ -45,13 +46,34 @@
   .cue-input{background:var(--sb);border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Inter',sans-serif;font-size:12px;padding:8px 10px;outline:none;width:100%;resize:vertical;min-height:52px;line-height:1.5;}
   .cue-input:focus{border-color:var(--sg);}
   .cue-input::placeholder{color:var(--sgr);}
-  .add-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:8px 14px;cursor:pointer;margin-bottom:20px;}
+  .song-header{display:flex;align-items:center;gap:10px;background:#111;border:1px solid var(--sbr);border-left:3px solid var(--sg);border-radius:4px;padding:8px 12px;margin-bottom:6px;margin-top:14px;}
+  .song-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--sg);background:transparent;border:none;outline:none;flex:1;min-width:0;}
+  .song-title::placeholder{color:var(--sbr);}
+  .song-meta{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--sgr);white-space:nowrap;}
+  .song-sep{color:var(--sbr);margin:0 5px;}
+  .song-action{background:transparent;border:1px solid var(--sbr);border-radius:3px;color:var(--sgr);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;padding:3px 8px;letter-spacing:0.5px;white-space:nowrap;}
+  .song-action:hover{border-color:var(--sg);color:var(--sg);}
+  .song-action.danger:hover{border-color:#FF4040;color:#FF4040;}
+  .btns-row{display:flex;gap:8px;margin-bottom:20px;}
+  .add-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sm);font-family:'Montserrat',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;padding:8px 14px;cursor:pointer;}
   .add-btn:hover{border-color:var(--sg);color:var(--sg);}
+  .song-form-panel{background:#111;border:1px solid var(--sbr);border-left:3px solid var(--sg);border-radius:4px;padding:14px 16px;margin-bottom:14px;}
+  .song-form-grid{display:grid;grid-template-columns:1fr 110px 100px 110px;gap:8px;margin-bottom:12px;}
+  .sf-field{display:flex;flex-direction:column;gap:4px;}
+  .sf-label{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);}
+  .sf-input{background:var(--sb);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:13px;padding:7px 10px;outline:none;width:100%;}
+  .sf-input:focus{border-color:var(--sg);}
+  .sf-hint{font-family:'Inter',sans-serif;font-size:10px;color:var(--sgr);margin-top:2px;}
+  .sf-buttons{display:flex;gap:8px;align-items:center;}
+  .sf-confirm{background:var(--sg);border:none;border-radius:4px;color:var(--sb);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:7px 16px;cursor:pointer;}
+  .sf-cancel{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;padding:7px 14px;cursor:pointer;}
+  .sf-cancel:hover{border-color:var(--sg);color:var(--sg);}
+  .sf-calc{font-family:'Roboto Mono',monospace;font-size:11px;color:var(--sg);margin-left:4px;}
   .tl-label{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;color:var(--sgr);margin-bottom:8px;}
   .timeline{display:flex;height:36px;border-radius:4px;overflow:hidden;gap:2px;}
   .tl-seg{height:100%;display:flex;align-items:center;justify-content:center;font-family:'Roboto Mono',monospace;font-size:10px;font-weight:500;min-width:2px;transition:flex 0.2s;}
-  .stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:16px;}
-  .stat-card{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;padding:10px 8px;text-align:center;}
+  .stats-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;}
+  .stat-card{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;padding:10px 8px;text-align:center;min-width:76px;}
   .stat-zone{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;margin-bottom:4px;}
   .stat-val{font-family:'Roboto Mono',monospace;font-size:16px;font-weight:500;color:var(--sw);}
   .stat-unit{font-family:'Inter',sans-serif;font-size:10px;color:var(--sgr);}
@@ -74,16 +96,9 @@
       <button class="unit-btn" id="btn-mins" onclick="setUnit('mins')">MINS</button>
       <button class="unit-btn" id="btn-secs" onclick="setUnit('secs')">SECS</button>
       <button class="unit-btn active" id="btn-beats" onclick="setUnit('beats')">BEATS</button>
-      <span class="unit-label" id="unit-hint">e.g. 4×8 = 32 beats</span>
+      <span class="unit-label" id="unit-hint">e.g. 4x8 = 32 beats</span>
     </div>
-    <div class="zone-legend">
-      <span class="zl-pill"><span class="zl-dot" style="background:#FFF;border:1px solid #555"></span>SRC</span>
-      <span class="zl-pill"><span class="zl-dot" style="background:#4472C4"></span>EASY</span>
-      <span class="zl-pill"><span class="zl-dot" style="background:#70AD47"></span>MOD</span>
-      <span class="zl-pill"><span class="zl-dot" style="background:#FFC000"></span>HARD</span>
-      <span class="zl-pill"><span class="zl-dot" style="background:#FF6347"></span>V HARD</span>
-      <span class="zl-pill"><span class="zl-dot" style="background:#DC143C"></span>ALL OUT</span>
-    </div>
+    <div class="zone-legend" id="zone-legend"></div>
   </div>
 
   <div class="col-headers">
@@ -95,7 +110,37 @@
   </div>
 
   <div class="blocks-area" id="blocks"></div>
-  <button class="add-btn" onclick="addBlock()">+ ADD BLOCK</button>
+
+  <div id="song-form-panel" style="display:none" class="song-form-panel">
+    <div class="song-form-grid">
+      <div class="sf-field">
+        <span class="sf-label">SONG NAME</span>
+        <input class="sf-input" type="text" id="sf-name" placeholder="e.g. Gold Dust" />
+      </div>
+      <div class="sf-field">
+        <span class="sf-label">LENGTH (M:SS)</span>
+        <input class="sf-input" type="text" id="sf-length" placeholder="3:30" oninput="updateSongCalc()" />
+      </div>
+      <div class="sf-field">
+        <span class="sf-label">BPM</span>
+        <input class="sf-input" type="number" id="sf-bpm" min="60" max="220" placeholder="128" oninput="updateSongCalc()" />
+      </div>
+      <div class="sf-field">
+        <span class="sf-label">DEAD SPACE (BEATS)</span>
+        <input class="sf-input" type="number" id="sf-dead" min="0" value="0" placeholder="0" />
+      </div>
+    </div>
+    <div class="sf-buttons">
+      <button class="sf-confirm" onclick="confirmSong()">ADD SONG</button>
+      <button class="sf-cancel" onclick="hideSongForm()">CANCEL</button>
+      <span class="sf-calc" id="sf-calc"></span>
+    </div>
+  </div>
+
+  <div class="btns-row">
+    <button class="add-btn" onclick="addBlock()">+ ADD BLOCK</button>
+    <button class="add-btn" onclick="showSongForm()">+ ADD SONG</button>
+  </div>
 
   <div style="margin-bottom:20px;">
     <div class="tl-label">EFFORT SHAPE</div>
@@ -117,145 +162,359 @@
 </div>
 
 <script>
-const ZONES = {
-  SRC:   {label:'SRC',    color:'#FFFFFF', text:'#000000'},
-  Easy:  {label:'EASY',   color:'#4472C4', text:'#FFFFFF'},
-  Mod:   {label:'MOD',    color:'#70AD47', text:'#FFFFFF'},
-  Hard:  {label:'HARD',   color:'#FFC000', text:'#000000'},
-  VHard: {label:'V HARD', color:'#FF6347', text:'#FFFFFF'},
-  AllOut:{label:'ALL OUT', color:'#DC143C', text:'#FFFFFF'},
+const COLOR_BANDS = {
+  white:  { label:'WHT', fullLabel:'WHITE',  color:'#FFFFFF', text:'#000000' },
+  blue:   { label:'BLU', fullLabel:'BLUE',   color:'#4472C4', text:'#FFFFFF' },
+  green:  { label:'GRN', fullLabel:'GREEN',  color:'#70AD47', text:'#FFFFFF' },
+  yellow: { label:'YLW', fullLabel:'YELLOW', color:'#FFC000', text:'#000000' },
+  red:    { label:'RED', fullLabel:'RED',    color:'#DC143C', text:'#FFFFFF' },
 };
+
+const ZONES = {
+  white_src:      { label:'SRC',      band:'white',  color:'#FFFFFF', text:'#000000' },
+  white_easy:     { label:'EASY',     band:'white',  color:'#EDF2FF', text:'#000000' },
+  white_easymod:  { label:'EASY:MOD', band:'white',  color:'#D8E6FF', text:'#000000' },
+  blue_easy:      { label:'EASY',     band:'blue',   color:'#B8CDE8', text:'#000000' },
+  blue_easymod:   { label:'EASY:MOD', band:'blue',   color:'#7A9DD4', text:'#FFFFFF' },
+  blue_mod:       { label:'MOD',      band:'blue',   color:'#4472C4', text:'#FFFFFF' },
+  green_easymod:  { label:'EASY:MOD', band:'green',  color:'#A9D18E', text:'#000000' },
+  green_mod:      { label:'MOD',      band:'green',  color:'#70AD47', text:'#FFFFFF' },
+  green_modhard:  { label:'MOD:HARD', band:'green',  color:'#548235', text:'#FFFFFF' },
+  yellow_mod:     { label:'MOD',      band:'yellow', color:'#FFE699', text:'#000000' },
+  yellow_modhard: { label:'MOD:HARD', band:'yellow', color:'#FFC000', text:'#000000' },
+  yellow_hard:    { label:'HARD',     band:'yellow', color:'#FF9900', text:'#000000' },
+  red_hard:       { label:'HARD',     band:'red',    color:'#FF8080', text:'#000000' },
+  red_vhard:      { label:'V HARD',   band:'red',    color:'#FF4040', text:'#FFFFFF' },
+  red_allout:     { label:'ALL OUT',  band:'red',    color:'#DC143C', text:'#FFFFFF' },
+  dead:           { label:'DEAD',     band:null,     color:'#444444', text:'#888888' },
+};
+
+function bandZones(band) {
+  return Object.entries(ZONES).filter(([, v]) => v.band === band);
+}
+
+function bandOpts(currentBand) {
+  return Object.entries(COLOR_BANDS).map(([k, v]) =>
+    `<option value="${k}"${k === currentBand ? ' selected' : ''}>${v.label}</option>`
+  ).join('');
+}
+
+function rangeOpts(band, currentZone) {
+  return bandZones(band).map(([k, v]) =>
+    `<option value="${k}"${k === currentZone ? ' selected' : ''}>${v.label}</option>`
+  ).join('');
+}
 
 const BEATS_OPTS = [
-  {label:'½×8',   val:4},
-  {label:'1×8',   val:8},
-  {label:'1½×8',  val:12},
-  {label:'2×8',   val:16},
-  {label:'2½×8',  val:20},
-  {label:'3×8',   val:24},
-  {label:'3½×8',  val:28},
-  {label:'4×8',   val:32},
-  {label:'4½×8',  val:36},
-  {label:'5×8',   val:40},
-  {label:'5½×8',  val:44},
-  {label:'6×8',   val:48},
-  {label:'6½×8',  val:52},
-  {label:'7×8',   val:56},
-  {label:'8×8',   val:64},
-  {label:'9×8',   val:72},
-  {label:'10×8',  val:80},
-  {label:'12×8',  val:96},
-  {label:'16×8',  val:128},
+  {label:'½x8',  val:4},  {label:'1x8',  val:8},  {label:'1½x8', val:12},
+  {label:'2x8',  val:16}, {label:'2½x8', val:20}, {label:'3x8',  val:24},
+  {label:'3½x8', val:28}, {label:'4x8',  val:32}, {label:'4½x8', val:36},
+  {label:'5x8',  val:40}, {label:'5½x8', val:44}, {label:'6x8',  val:48},
+  {label:'6½x8', val:52}, {label:'7x8',  val:56}, {label:'8x8',  val:64},
+  {label:'9x8',  val:72}, {label:'10x8', val:80}, {label:'12x8', val:96},
+  {label:'16x8', val:128},
 ];
 
-let blockId = 0, blocks = [], unit = 'beats';
+let blockId = 0, songId = 0, blocks = [], songs = [], unit = 'beats';
 
 const UNIT_CONFIG = {
-  mins:  {label:'MINS',  hint:'e.g. 3 = 3 minutes', col:'MINS',  default:3,  step:1, fmt:(v)=>v+'m',       total:(v)=>{ const m=Math.floor(v),s=Math.round((v-m)*60); return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION'},
-  secs:  {label:'SECS',  hint:'e.g. 90 = 1:30',     col:'SECS',  default:30, step:5, fmt:(v)=>v+'s',       total:(v)=>{ const m=Math.floor(v/60),s=v%60; return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION'},
-  beats: {label:'BEATS', hint:'e.g. 4×8 = 32 beats', col:'BEATS', default:32, step:8, fmt:(v)=>fmtBeats(v), total:(v)=>v+' beats', totalLabel:'TOTAL BEATS'},
+  mins:  { label:'MINS',  hint:'e.g. 3 = 3 minutes',  col:'MINS',  default:3,  step:1, fmt:(v) => v+'m',            total:(v) => { const m=Math.floor(v),s=Math.round((v-m)*60); return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
+  secs:  { label:'SECS',  hint:'e.g. 90 = 1:30',      col:'SECS',  default:30, step:5, fmt:(v) => v+'s',            total:(v) => { const m=Math.floor(v/60),s=v%60; return m+':'+String(s).padStart(2,'0'); }, totalLabel:'TOTAL DURATION' },
+  beats: { label:'BEATS', hint:'e.g. 4x8 = 32 beats', col:'BEATS', default:32, step:8, fmt:(v) => formatBeats(v),   total:(v) => v+' beats', totalLabel:'TOTAL BEATS' },
 };
 
-function fmtBeats(v) {
+function formatBeats(v) {
   const opt = BEATS_OPTS.find(o => o.val === v);
   return opt ? opt.label : v + 'b';
 }
 
 function beatsToTime(beats, bpm) {
-  if (!bpm || bpm <= 0) return null;
+  if (!bpm) return null;
   const totalSecs = Math.round((beats / bpm) * 60);
   const m = Math.floor(totalSecs / 60);
   const s = totalSecs % 60;
   return m + ':' + String(s).padStart(2, '0');
 }
 
-function makeDurEl(id, b) {
+function durationInput(id, b) {
   const cfg = UNIT_CONFIG[unit];
-  return `<input class="dur-input" type="number" value="${b.dur}" min="1" step="${cfg.step}" oninput="upd(${id},'dur',parseFloat(this.value)||0)" />`;
+  return `<input class="dur-input" type="number" value="${b.dur}" min="1" step="${cfg.step}" oninput="updateBlock(${id},'dur',parseFloat(this.value)||0)" />`;
+}
+
+function applyZoneStyle(id) {
+  const b = blocks.find(x => x.id === id);
+  if (!b || b.zone === 'dead') return;
+  const z = ZONES[b.zone];
+  if (!z) return;
+  const band = z.band;
+  const bandSel = document.getElementById('band-sel-' + id);
+  const rangeSel = document.getElementById('range-sel-' + id);
+  if (bandSel) {
+    const cb = COLOR_BANDS[band];
+    bandSel.style.background = cb.color;
+    bandSel.style.color = cb.text;
+    bandSel.style.borderColor = cb.color;
+  }
+  if (rangeSel) {
+    rangeSel.style.background = z.color;
+    rangeSel.style.color = z.text;
+    rangeSel.style.borderColor = z.color;
+  }
 }
 
 function setUnit(u) {
   unit = u;
-  ['mins','secs','beats'].forEach(k => document.getElementById('btn-'+k).classList.toggle('active', k===u));
+  ['mins', 'secs', 'beats'].forEach(k => document.getElementById('btn-' + k).classList.toggle('active', k === u));
   const cfg = UNIT_CONFIG[u];
   document.getElementById('unit-hint').textContent = cfg.hint;
   document.getElementById('col-unit-label').textContent = cfg.col;
   blocks.forEach(b => {
     b.dur = cfg.default;
-    const wrap = document.getElementById('dur-wrap-'+b.id);
-    if (wrap) wrap.innerHTML = makeDurEl(b.id, b);
+    const wrap = document.getElementById('dur-wrap-' + b.id);
+    if (wrap) wrap.innerHTML = durationInput(b.id, b);
   });
   render();
 }
 
-function addBlock() {
-  blockId++;
-  const id = blockId;
-  const cfg = UNIT_CONFIG[unit];
-  const trackNum = blocks.length + 1;
-  blocks.push({id, trackNum, name:'', dur:cfg.default, zone:'Mod', bpm:'', cue:'', detailOpen:false});
-  const b = blocks[blocks.length - 1];
-
+function buildBlockRow(id, b) {
   const row = document.createElement('div');
   row.className = 'block-row';
-  row.id = 'br-'+id;
+  row.id = 'br-' + id;
 
   const detailRow = document.createElement('div');
   detailRow.className = 'detail-row';
-  detailRow.id = 'dr-'+id;
-  detailRow.innerHTML = `
-    <div class="detail-inner">
-      <div class="bpm-line">
-        <span class="bpm-label">BPM</span>
-        <input class="bpm-input" type="number" min="60" max="220" step="1" placeholder="128" oninput="upd(${id},'bpm',parseFloat(this.value)||0)" />
-        <span class="bpm-calc" id="bc-${id}"></span>
-      </div>
-      <textarea class="cue-input" placeholder="coaching cue..." oninput="upd(${id},'cue',this.value)"></textarea>
-    </div>
-  `;
+  detailRow.id = 'dr-' + id;
 
-  const zoneOpts = Object.entries(ZONES).map(([k,v]) =>
-    `<option value="${k}">${v.label}</option>`
-  ).join('');
+  if (b.zone !== 'dead') {
+    detailRow.innerHTML = `
+      <div class="detail-inner">
+        <div class="bpm-line">
+          <span class="bpm-label">BPM</span>
+          <input class="bpm-input" type="number" min="60" max="220" step="1" placeholder="128" value="${b.bpm||''}" oninput="updateBlock(${id},'bpm',parseFloat(this.value)||0)" />
+          <span class="bpm-calc" id="bc-${id}"></span>
+        </div>
+        <textarea class="cue-input" placeholder="coaching cue..." oninput="updateBlock(${id},'cue',this.value)">${b.cue||''}</textarea>
+      </div>`;
+  }
+
+  const band = ZONES[b.zone]?.band || 'blue';
+
+  let zoneHtml;
+  if (b.zone === 'dead') {
+    zoneHtml = `<div class="zone-wrap"><div class="zone-dead">DEAD SPACE</div></div>`;
+  } else {
+    zoneHtml = `<div class="zone-wrap">
+      <select class="band-sel" id="band-sel-${id}" onchange="updateBand(${id},this.value)">${bandOpts(band)}</select>
+      <select class="range-sel" id="range-sel-${id}" onchange="updateBlock(${id},'zone',this.value)">${rangeOpts(band, b.zone)}</select>
+    </div>`;
+  }
+
+  let actionsHtml;
+  if (b.zone === 'dead') {
+    actionsHtml = `<button class="act-btn" onclick="removeBlock(${id})" title="Remove">x</button>`;
+  } else if (b.isMeasure) {
+    actionsHtml = `
+      <button class="act-btn" id="split-${id}" onclick="splitMeasure(${id})" title="Split">+</button>
+      <button class="act-btn" id="comb-${id}" onclick="combineMeasures(${id})" title="Combine with next">^</button>
+      <button class="act-btn" onclick="removeBlock(${id})" title="Remove">x</button>`;
+  } else {
+    actionsHtml = `
+      <button class="act-btn" id="ct-${id}" onclick="toggleDetail(${id})">v</button>
+      <button class="act-btn" onclick="removeBlock(${id})">x</button>`;
+  }
 
   row.innerHTML = `
-    <input class="track-num" type="text" value="${trackNum}" oninput="upd(${id},'trackNum',this.value)" />
-    <input type="text" placeholder="e.g. Warm Up" oninput="upd(${id},'name',this.value)" />
-    <div id="dur-wrap-${id}">${makeDurEl(id, b)}</div>
-    <select class="zone-select" onchange="upd(${id},'zone',this.value)">${zoneOpts}</select>
-    <div class="row-actions">
-      <button class="cue-toggle" id="ct-${id}" onclick="toggleDetail(${id})">▾</button>
-      <button class="del-btn" onclick="rmBlock(${id})">×</button>
-    </div>
-  `;
+    <input class="track-num" type="text" value="${b.trackNum||''}" oninput="updateBlock(${id},'trackNum',this.value)" />
+    <input type="text" placeholder="${b.isMeasure && b.zone !== 'dead' ? '(measure)' : 'e.g. Warm Up'}" value="${b.name||''}" oninput="updateBlock(${id},'name',this.value)" />
+    <div id="dur-wrap-${id}">${durationInput(id, b)}</div>
+    ${zoneHtml}
+    <div class="row-actions">${actionsHtml}</div>`;
 
+  return [row, detailRow];
+}
+
+function addBlock() {
+  const id = ++blockId;
+  const cfg = UNIT_CONFIG[unit];
+  const b = {id, trackNum: blocks.length + 1, name:'', dur:cfg.default, zone:'blue_mod', bpm:'', cue:'', detailOpen:false, songId:null, isMeasure:false};
+  blocks.push(b);
+  const [row, detailRow] = buildBlockRow(id, b);
   const area = document.getElementById('blocks');
   area.appendChild(row);
   area.appendChild(detailRow);
-  upd(id, 'zone', 'Mod');
+  applyZoneStyle(id);
+  render();
+}
+
+function showSongForm() {
+  document.getElementById('song-form-panel').style.display = 'block';
+  document.getElementById('sf-name').focus();
+}
+
+function hideSongForm() {
+  document.getElementById('song-form-panel').style.display = 'none';
+  document.getElementById('sf-calc').textContent = '';
+  ['sf-name', 'sf-length', 'sf-bpm'].forEach(i => document.getElementById(i).value = '');
+  document.getElementById('sf-dead').value = '0';
+}
+
+function parseLengthToSecs(str) {
+  const parts = str.trim().split(':');
+  if (parts.length === 2) return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+  return parseFloat(str) * 60;
+}
+
+function updateSongCalc() {
+  const lengthStr = document.getElementById('sf-length').value.trim();
+  const bpm = parseFloat(document.getElementById('sf-bpm').value) || 0;
+  const calc = document.getElementById('sf-calc');
+  if (!lengthStr || !bpm) { calc.textContent = ''; return; }
+  const secs = parseLengthToSecs(lengthStr);
+  const beats = (secs / 60) * bpm;
+  const full = Math.floor(beats / 32);
+  const rem = Math.round(beats % 32);
+  calc.textContent = `→ ${full + (rem > 0 ? 1 : 0)} measures (${Math.round(beats)} beats)`;
+}
+
+function confirmSong() {
+  const name = document.getElementById('sf-name').value.trim() || 'Untitled Song';
+  const lengthStr = document.getElementById('sf-length').value.trim();
+  const bpm = parseFloat(document.getElementById('sf-bpm').value) || 0;
+  const dead = parseInt(document.getElementById('sf-dead').value) || 0;
+
+  if (!lengthStr || !bpm) { alert('Enter song length and BPM to continue.'); return; }
+
+  const totalSecs = parseLengthToSecs(lengthStr);
+  const totalBeats = (totalSecs / 60) * bpm;
+  const numFull = Math.floor(totalBeats / 32);
+  const remainder = Math.round(totalBeats % 32);
+
+  const sid = ++songId;
+  const totalMeasures = numFull + (remainder > 0 ? 1 : 0);
+  songs.push({ id:sid, name, length:lengthStr, bpm, deadSpace:dead });
+
+  hideSongForm();
+
+  const area = document.getElementById('blocks');
+
+  const hdr = document.createElement('div');
+  hdr.className = 'song-header';
+  hdr.id = 'sh-' + sid;
+  hdr.innerHTML = `
+    <input class="song-title" type="text" value="${name}" oninput="updateSong(${sid},'name',this.value)" />
+    <span class="song-meta">${lengthStr}<span class="song-sep">|</span>${bpm} BPM<span class="song-sep">|</span>${totalMeasures} measures</span>
+    <button class="song-action danger" onclick="removeSong(${sid})">x REMOVE</button>`;
+  area.appendChild(hdr);
+
+  for (let i = 0; i < numFull; i++) {
+    const id = ++blockId;
+    const b = {id, trackNum:i + 1, name:'', dur:32, zone:'blue_mod', bpm, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    blocks.push(b);
+    const [row, detailRow] = buildBlockRow(id, b);
+    area.appendChild(row);
+    area.appendChild(detailRow);
+    applyZoneStyle(id);
+  }
+
+  if (remainder > 0) {
+    const id = ++blockId;
+    const b = {id, trackNum:numFull + 1, name:'', dur:remainder, zone:'blue_mod', bpm, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    blocks.push(b);
+    const [row, detailRow] = buildBlockRow(id, b);
+    area.appendChild(row);
+    area.appendChild(detailRow);
+    applyZoneStyle(id);
+  }
+
+  if (dead > 0) {
+    const id = ++blockId;
+    const b = {id, trackNum:'', name:'dead space', dur:dead, zone:'dead', bpm:0, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    blocks.push(b);
+    const [row, detailRow] = buildBlockRow(id, b);
+    area.appendChild(row);
+    area.appendChild(detailRow);
+  }
+
+  render();
+}
+
+function updateSong(sid, field, val) {
+  const s = songs.find(x => x.id === sid);
+  if (s) s[field] = val;
+}
+
+function removeSong(sid) {
+  blocks.filter(b => b.songId === sid).forEach(b => {
+    document.getElementById('br-' + b.id)?.remove();
+    document.getElementById('dr-' + b.id)?.remove();
+  });
+  blocks = blocks.filter(b => b.songId !== sid);
+  songs = songs.filter(s => s.id !== sid);
+  document.getElementById('sh-' + sid)?.remove();
+  render();
+}
+
+function combineMeasures(id) {
+  const idx = blocks.findIndex(x => x.id === id);
+  if (idx < 0 || idx >= blocks.length - 1) return;
+  const curr = blocks[idx];
+  const next = blocks[idx + 1];
+  if (!next || next.songId !== curr.songId) return;
+  curr.dur += next.dur;
+  const wrap = document.getElementById('dur-wrap-' + id);
+  if (wrap) wrap.innerHTML = durationInput(id, curr);
+  document.getElementById('br-' + next.id)?.remove();
+  document.getElementById('dr-' + next.id)?.remove();
+  blocks.splice(idx + 1, 1);
+  render();
+}
+
+function splitMeasure(id) {
+  const idx = blocks.findIndex(x => x.id === id);
+  if (idx < 0) return;
+  const b = blocks[idx];
+  if (b.dur < 8) return;
+  const half = Math.floor(b.dur / 2);
+  const remainder = b.dur - half;
+  b.dur = half;
+  const wrap = document.getElementById('dur-wrap-' + id);
+  if (wrap) wrap.innerHTML = durationInput(id, b);
+
+  const newId = ++blockId;
+  const newBlock = {id:newId, trackNum:b.trackNum, name:'', dur:remainder, zone:b.zone, bpm:b.bpm, cue:'', detailOpen:false, songId:b.songId, isMeasure:true};
+  blocks.splice(idx + 1, 0, newBlock);
+
+  const [newRow, newDetailRow] = buildBlockRow(newId, newBlock);
+  document.getElementById('dr-' + id).after(newDetailRow);
+  document.getElementById('dr-' + id).after(newRow);
+  applyZoneStyle(newId);
+  render();
 }
 
 function toggleDetail(id) {
   const b = blocks.find(x => x.id === id);
   if (!b) return;
   b.detailOpen = !b.detailOpen;
-  document.getElementById('dr-'+id).classList.toggle('open', b.detailOpen);
-  document.getElementById('ct-'+id).classList.toggle('active', b.detailOpen);
+  document.getElementById('dr-' + id).classList.toggle('open', b.detailOpen);
+  document.getElementById('ct-' + id)?.classList.toggle('active', b.detailOpen);
 }
 
-function upd(id, field, val) {
+function updateBand(id, band) {
+  const zones = bandZones(band);
+  if (!zones.length) return;
+  const firstKey = zones[0][0];
+  const rangeSel = document.getElementById('range-sel-' + id);
+  if (rangeSel) rangeSel.innerHTML = rangeOpts(band, firstKey);
+  updateBlock(id, 'zone', firstKey);
+}
+
+function updateBlock(id, field, val) {
   const b = blocks.find(x => x.id === id);
   if (!b) return;
   b[field] = val;
-  if (field === 'zone') {
-    const sel = document.querySelector('#br-'+id+' .zone-select');
-    const z = ZONES[val];
-    sel.style.background = z.color;
-    sel.style.color = z.text;
-    sel.style.borderColor = z.color;
-  }
+  if (field === 'zone') applyZoneStyle(id);
   if ((field === 'bpm' || field === 'dur') && unit === 'beats') {
-    const calc = document.getElementById('bc-'+id);
+    const calc = document.getElementById('bc-' + id);
     if (calc) {
       const t = beatsToTime(b.dur, b.bpm);
       calc.textContent = t ? '= ' + t : '';
@@ -264,51 +523,51 @@ function upd(id, field, val) {
   render();
 }
 
-function rmBlock(id) {
+function removeBlock(id) {
   blocks = blocks.filter(x => x.id !== id);
-  document.getElementById('br-'+id)?.remove();
-  document.getElementById('dr-'+id)?.remove();
+  document.getElementById('br-' + id)?.remove();
+  document.getElementById('dr-' + id)?.remove();
   render();
 }
 
 function render() {
   const cfg = UNIT_CONFIG[unit];
-  const total = blocks.reduce((s, b) => s + (b.dur || 0), 0);
+  const effortBlocks = blocks.filter(b => b.zone !== 'dead');
+  const total = effortBlocks.reduce((s, b) => s + (b.dur || 0), 0);
+  const totalAll = blocks.reduce((s, b) => s + (b.dur || 0), 0);
 
   blocks.forEach(b => {
-    const calc = document.getElementById('bc-'+b.id);
-    if (calc) {
-      calc.textContent = (unit === 'beats' && b.bpm > 0)
-        ? '= ' + (beatsToTime(b.dur, b.bpm) || '')
-        : '';
-    }
+    const calc = document.getElementById('bc-' + b.id);
+    if (calc) calc.textContent = (unit === 'beats' && b.bpm > 0) ? '= ' + (beatsToTime(b.dur, b.bpm) || '') : '';
   });
 
   const tl = document.getElementById('timeline');
-  if (!blocks.length || total === 0) {
+  if (!blocks.length || totalAll === 0) {
     tl.innerHTML = '<div style="flex:1;background:#1C1C1C;border-radius:4px"></div>';
   } else {
     tl.innerHTML = blocks.map(b => {
-      const z = ZONES[b.zone];
-      const pct = (b.dur / total) * 100;
+      const z = ZONES[b.zone] || ZONES['blue_mod'];
+      const pct = (b.dur / totalAll) * 100;
       const label = pct > 8 ? cfg.fmt(b.dur) : '';
       return `<div class="tl-seg" style="flex:${pct};background:${z.color};color:${z.text}">${label}</div>`;
     }).join('');
   }
 
   const zoneTotals = {};
-  Object.keys(ZONES).forEach(k => zoneTotals[k] = 0);
-  blocks.forEach(b => { zoneTotals[b.zone] += (b.dur || 0); });
+  effortBlocks.forEach(b => { zoneTotals[b.zone] = (zoneTotals[b.zone] || 0) + (b.dur || 0); });
 
-  document.getElementById('stats').innerHTML = Object.entries(ZONES).map(([k,v]) => {
-    const t = zoneTotals[k];
-    const pct = total > 0 ? Math.round((t / total) * 100) : 0;
-    return `<div class="stat-card">
-      <div class="stat-zone" style="color:${v.color}">${v.label}</div>
-      <div class="stat-val">${t > 0 ? cfg.fmt(t) : '—'}</div>
-      <div class="stat-unit">${t > 0 ? pct + '%' : ''}</div>
-    </div>`;
-  }).join('');
+  document.getElementById('stats').innerHTML = Object.entries(zoneTotals)
+    .filter(([, t]) => t > 0)
+    .map(([k, t]) => {
+      const v = ZONES[k];
+      if (!v) return '';
+      const pct = total > 0 ? Math.round((t / total) * 100) : 0;
+      return `<div class="stat-card">
+        <div class="stat-zone" style="color:${v.color}">${v.label}</div>
+        <div class="stat-val">${cfg.fmt(t)}</div>
+        <div class="stat-unit">${pct}%</div>
+      </div>`;
+    }).join('');
 
   document.getElementById('total-disp').textContent = total > 0 ? cfg.total(total) : '—';
   document.getElementById('total-label').textContent = cfg.totalLabel;
@@ -316,12 +575,11 @@ function render() {
   const timeWrap = document.getElementById('total-time-wrap');
   if (unit === 'beats' && blocks.length > 0) {
     const totalSecs = blocks.reduce((s, b) => {
-      if (s === null || !b.bpm || b.bpm <= 0) return null;
+      if (s === null || !b.bpm) return null;
       return s + (b.dur / b.bpm) * 60;
     }, 0);
     if (totalSecs !== null && totalSecs > 0) {
-      const m = Math.floor(totalSecs / 60);
-      const s = Math.round(totalSecs % 60);
+      const m = Math.floor(totalSecs / 60), s = Math.round(totalSecs % 60);
       document.getElementById('total-time-disp').textContent = m + ':' + String(s).padStart(2, '0');
       timeWrap.style.display = 'flex';
     } else {
@@ -331,6 +589,14 @@ function render() {
     timeWrap.style.display = 'none';
   }
 }
+
+document.getElementById('zone-legend').innerHTML = Object.entries(COLOR_BANDS).map(([band, cb]) => {
+  const zones = bandZones(band);
+  const swatches = zones.map(([, z]) =>
+    `<span class="zl-swatch" style="background:${z.color};${band === 'white' ? 'border:1px solid #555;' : ''}"></span>`
+  ).join('');
+  return `<span class="zl-band">${swatches}<span style="margin-left:4px">${cb.fullLabel}</span></span>`;
+}).join('');
 
 addBlock();
 addBlock();
