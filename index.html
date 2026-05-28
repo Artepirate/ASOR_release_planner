@@ -15,10 +15,10 @@
   .zone-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
   .zl-band{display:flex;align-items:center;gap:2px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
   .zl-swatch{width:6px;height:14px;border-radius:2px;}
-  .col-headers{display:grid;grid-template-columns:40px 1fr 78px 118px 82px 148px 90px;gap:6px;margin-bottom:6px;}
+  .col-headers{display:grid;grid-template-columns:40px 1fr 78px 118px 100px 148px 90px;gap:6px;margin-bottom:6px;}
   .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 4px;}
   .blocks-area{margin-bottom:12px;}
-  .block-row{display:grid;grid-template-columns:40px 1fr 78px 118px 82px 148px 90px;gap:6px;align-items:center;margin-bottom:4px;}
+  .block-row{display:grid;grid-template-columns:40px 1fr 78px 118px 100px 148px 90px;gap:6px;align-items:center;margin-bottom:4px;}
   .track-num{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Roboto Mono',monospace;font-size:12px;padding:7px 6px;outline:none;width:100%;text-align:center;}
   .track-num:focus{border-color:var(--sg);color:var(--sw);}
   .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
@@ -92,6 +92,7 @@
   .load-val-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:12px;padding:0 4px;height:34px;outline:none;width:38px;text-align:center;}
   .load-val-input:focus{border-color:var(--sg);}
   .col-dead{color:var(--sgr);font-size:11px;padding:7px 8px;display:block;}
+  .load-total{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--sg);min-width:20px;text-align:right;}
 </style>
 
 <div class="wrap">
@@ -238,7 +239,7 @@ const LOAD_TYPES = [
   {key:'hold',   symbol:'—',    hasVal:false},
   {key:'base',   symbol:'BASE', hasVal:false},
   {key:'add',    symbol:'↗',    hasVal:true },
-  {key:'remove', symbol:'↙',    hasVal:true },
+  {key:'remove', symbol:'↙',    hasVal:false},
   {key:'dump',   symbol:'↓',    hasVal:false},
 ];
 
@@ -378,6 +379,7 @@ function buildBlockRow(id, b) {
           ${LOAD_TYPES.map(o => `<option value="${o.key}"${b.loadType === o.key ? ' selected' : ''}>${o.symbol}</option>`).join('')}
         </select>
         <input class="load-val-input" id="load-val-${id}" type="number" min="1" max="20" value="${b.loadVal}" style="display:${lt.hasVal ? 'block' : 'none'}" oninput="updateBlock(${id},'loadVal',parseInt(this.value)||1)" />
+        <span class="load-total" id="load-total-${id}"></span>
       </div>`;
 
   row.innerHTML = `
@@ -637,6 +639,19 @@ function render() {
         <div class="stat-unit">${pct}%</div>
       </div>`;
     }).join('');
+
+  let loadAcc = null;
+  blocks.forEach(b => {
+    if (b.zone === 'dead') return;
+    switch (b.loadType) {
+      case 'base':   loadAcc = 1; break;
+      case 'add':    loadAcc = (loadAcc ?? 0) + (b.loadVal || 1); break;
+      case 'remove': loadAcc = Math.max(0, (loadAcc ?? 0) - 1); break;
+      case 'dump':   loadAcc = 0; break;
+    }
+    const totalEl = document.getElementById('load-total-' + b.id);
+    if (totalEl) totalEl.textContent = loadAcc !== null ? String(loadAcc) : '';
+  });
 
   let prevMult = null;
   blocks.forEach(b => {
