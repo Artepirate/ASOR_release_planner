@@ -92,6 +92,8 @@
   .load-val-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:12px;padding:0 4px;height:34px;outline:none;width:38px;text-align:center;}
   .load-val-input:focus{border-color:var(--sg);}
   .col-dead{color:var(--sgr);font-size:11px;padding:7px 8px;display:block;}
+  .col-toggle-btn{background:transparent;border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);cursor:pointer;font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 6px;white-space:nowrap;}
+  .col-toggle-btn:hover{border-color:var(--sg);color:var(--sg);}
   .load-total{font-family:'Roboto Mono',monospace;font-size:12px;color:var(--sg);min-width:20px;text-align:right;}
 </style>
 
@@ -119,7 +121,7 @@
     <span class="col-h">CAD</span>
     <span class="col-h">LOAD</span>
     <span class="col-h">ZONE</span>
-    <span class="col-h"></span>
+    <button class="col-toggle-btn" id="toggle-all-btn" onclick="toggleAllDetails()">EXPAND ALL</button>
   </div>
 
   <div class="blocks-area" id="blocks"></div>
@@ -554,6 +556,17 @@ function splitMeasure(id) {
   document.getElementById('dr-' + id).after(newRow);
   applyZoneStyle(newId);
   render();
+}
+
+function toggleAllDetails() {
+  const anyOpen = blocks.some(b => b.zone !== 'dead' && b.detailOpen);
+  blocks.forEach(b => {
+    if (b.zone === 'dead') return;
+    b.detailOpen = !anyOpen;
+    document.getElementById('dr-' + b.id).classList.toggle('open', b.detailOpen);
+    document.getElementById('ct-' + b.id)?.classList.toggle('active', b.detailOpen);
+  });
+  document.getElementById('toggle-all-btn').textContent = anyOpen ? 'EXPAND ALL' : 'COLLAPSE ALL';
 }
 
 function toggleDetail(id) {
