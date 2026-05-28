@@ -1,4 +1,4 @@
-
+<meta charset="UTF-8">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&family=Inter:wght@400;500&family=Roboto+Mono:wght@500&display=swap');
   :root { --sb:#0A0A0A;--ss:#1C1C1C;--sbr:#3A3A3A;--sg:#D4A574;--sv:#C0C0C0;--sw:#F5F5F0;--sgr:#7A7A72;--sm:#C8C8C0; }
@@ -15,10 +15,10 @@
   .zone-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
   .zl-band{display:flex;align-items:center;gap:2px;font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;color:var(--sm);}
   .zl-swatch{width:6px;height:14px;border-radius:2px;}
-  .col-headers{display:grid;grid-template-columns:44px 1fr 100px 148px 72px;gap:8px;margin-bottom:6px;}
+  .col-headers{display:grid;grid-template-columns:44px 1fr 80px 130px 110px 90px 72px;gap:8px;margin-bottom:6px;}
   .col-h{font-family:'Montserrat',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;color:var(--sgr);padding:0 4px;}
   .blocks-area{margin-bottom:12px;}
-  .block-row{display:grid;grid-template-columns:44px 1fr 100px 148px 72px;gap:8px;align-items:center;margin-bottom:4px;}
+  .block-row{display:grid;grid-template-columns:44px 1fr 80px 130px 110px 90px 72px;gap:8px;align-items:center;margin-bottom:4px;}
   .track-num{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sgr);font-family:'Roboto Mono',monospace;font-size:12px;padding:7px 6px;outline:none;width:100%;text-align:center;}
   .track-num:focus{border-color:var(--sg);color:var(--sw);}
   .block-row input[type=text]{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Inter',sans-serif;font-size:13px;padding:7px 10px;outline:none;width:100%;}
@@ -82,6 +82,16 @@
   .total-dur{font-family:'Roboto Mono',monospace;font-size:28px;color:var(--sg);}
   .total-label{font-family:'Inter',sans-serif;font-size:11px;color:var(--sgr);margin-top:2px;}
   .total-time{font-family:'Roboto Mono',monospace;font-size:20px;color:var(--sv);}
+  .cad-wrap{display:flex;align-items:center;gap:3px;width:100%;}
+  .cad-sel{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:7px 4px;outline:none;flex:1;cursor:pointer;}
+  .cad-sel:focus{border-color:var(--sg);}
+  .cad-arrow{font-size:11px;color:var(--sg);min-width:10px;text-align:center;}
+  .load-wrap{display:flex;align-items:center;gap:3px;width:100%;}
+  .load-type-sel{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;padding:7px 3px;outline:none;flex:0 0 44px;cursor:pointer;text-align:center;}
+  .load-type-sel:focus{border-color:var(--sg);}
+  .load-val-input{background:var(--ss);border:1px solid var(--sbr);border-radius:4px;color:var(--sw);font-family:'Roboto Mono',monospace;font-size:12px;padding:7px 4px;outline:none;width:38px;text-align:center;}
+  .load-val-input:focus{border-color:var(--sg);}
+  .col-dead{color:var(--sgr);font-size:11px;padding:0 8px;}
 </style>
 
 <div class="wrap">
@@ -106,6 +116,8 @@
     <span class="col-h">BLOCK / TRACK</span>
     <span class="col-h" id="col-unit-label" style="text-align:right;padding-right:12px">BEATS</span>
     <span class="col-h">ZONE</span>
+    <span class="col-h">CAD</span>
+    <span class="col-h">LOAD</span>
     <span class="col-h"></span>
   </div>
 
@@ -204,6 +216,31 @@ function rangeOpts(band, currentZone) {
     `<option value="${k}"${k === currentZone ? ' selected' : ''}>${v.label}</option>`
   ).join('');
 }
+
+const CADENCE_OPTS = [
+  {label:'1:4',         mult:0.25},
+  {label:'SLOW',        mult:0.25},
+  {label:'1:2',         mult:0.5 },
+  {label:'1:4 to 1:2',  mult:0.5 },
+  {label:'3:4',         mult:0.75},
+  {label:'1:2 to 3:4',  mult:0.75},
+  {label:'PP',          mult:0.8 },
+  {label:'Build',       mult:0.8 },
+  {label:'1:1',         mult:1.0 },
+  {label:'3:4 to 1:1',  mult:1.0 },
+  {label:'1:2 to Acc',  mult:1.0 },
+  {label:'Acc',         mult:1.25},
+  {label:'3:4 to Acc',  mult:1.25},
+  {label:'1:1 to Acc',  mult:1.25},
+];
+
+const LOAD_TYPES = [
+  {key:'hold',   symbol:'—',    hasVal:false},
+  {key:'base',   symbol:'BASE', hasVal:false},
+  {key:'add',    symbol:'↗',    hasVal:true },
+  {key:'remove', symbol:'↙',    hasVal:true },
+  {key:'dump',   symbol:'↓',    hasVal:false},
+];
 
 const BEATS_OPTS = [
   {label:'½x8',  val:4},  {label:'1x8',  val:8},  {label:'1½x8', val:12},
@@ -323,11 +360,33 @@ function buildBlockRow(id, b) {
       <button class="act-btn" onclick="removeBlock(${id})">x</button>`;
   }
 
+  const cadenceHtml = b.zone === 'dead'
+    ? `<span class="col-dead">—</span>`
+    : `<div class="cad-wrap">
+        <span class="cad-arrow" id="cad-arrow-${id}"></span>
+        <select class="cad-sel" onchange="updateBlock(${id},'cadence',this.value)">
+          <option value="">—</option>
+          ${CADENCE_OPTS.map(o => `<option value="${o.label}"${b.cadence === o.label ? ' selected' : ''}>${o.label}</option>`).join('')}
+        </select>
+      </div>`;
+
+  const lt = LOAD_TYPES.find(o => o.key === b.loadType) || LOAD_TYPES[0];
+  const loadHtml = b.zone === 'dead'
+    ? `<span class="col-dead">—</span>`
+    : `<div class="load-wrap">
+        <select class="load-type-sel" onchange="updateLoadType(${id},this.value)">
+          ${LOAD_TYPES.map(o => `<option value="${o.key}"${b.loadType === o.key ? ' selected' : ''}>${o.symbol}</option>`).join('')}
+        </select>
+        <input class="load-val-input" id="load-val-${id}" type="number" min="1" max="20" value="${b.loadVal}" style="display:${lt.hasVal ? 'block' : 'none'}" oninput="updateBlock(${id},'loadVal',parseInt(this.value)||1)" />
+      </div>`;
+
   row.innerHTML = `
     <input class="track-num" type="text" value="${b.trackNum||''}" oninput="updateBlock(${id},'trackNum',this.value)" />
     <input type="text" placeholder="${b.isMeasure && b.zone !== 'dead' ? '(measure)' : 'e.g. Warm Up'}" value="${b.name||''}" oninput="updateBlock(${id},'name',this.value)" />
     <div id="dur-wrap-${id}">${durationInput(id, b)}</div>
     ${zoneHtml}
+    ${cadenceHtml}
+    ${loadHtml}
     <div class="row-actions">${actionsHtml}</div>`;
 
   return [row, detailRow];
@@ -336,7 +395,7 @@ function buildBlockRow(id, b) {
 function addBlock() {
   const id = ++blockId;
   const cfg = UNIT_CONFIG[unit];
-  const b = {id, trackNum: blocks.length + 1, name:'', dur:cfg.default, zone:'blue_mod', bpm:'', cue:'', detailOpen:false, songId:null, isMeasure:false};
+  const b = {id, trackNum: blocks.length + 1, name:'', dur:cfg.default, zone:'blue_mod', bpm:'', cue:'', cadence:'', loadType:'hold', loadVal:1, detailOpen:false, songId:null, isMeasure:false};
   blocks.push(b);
   const [row, detailRow] = buildBlockRow(id, b);
   const area = document.getElementById('blocks');
@@ -408,7 +467,7 @@ function confirmSong() {
 
   for (let i = 0; i < numFull; i++) {
     const id = ++blockId;
-    const b = {id, trackNum:i + 1, name:'', dur:32, zone:'blue_mod', bpm, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    const b = {id, trackNum:i + 1, name:'', dur:32, zone:'blue_mod', bpm, cue:'', cadence:'', loadType:'hold', loadVal:1, detailOpen:false, songId:sid, isMeasure:true};
     blocks.push(b);
     const [row, detailRow] = buildBlockRow(id, b);
     area.appendChild(row);
@@ -418,7 +477,7 @@ function confirmSong() {
 
   if (remainder > 0) {
     const id = ++blockId;
-    const b = {id, trackNum:numFull + 1, name:'', dur:remainder, zone:'blue_mod', bpm, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    const b = {id, trackNum:numFull + 1, name:'', dur:remainder, zone:'blue_mod', bpm, cue:'', cadence:'', loadType:'hold', loadVal:1, detailOpen:false, songId:sid, isMeasure:true};
     blocks.push(b);
     const [row, detailRow] = buildBlockRow(id, b);
     area.appendChild(row);
@@ -428,7 +487,7 @@ function confirmSong() {
 
   if (dead > 0) {
     const id = ++blockId;
-    const b = {id, trackNum:'', name:'dead space', dur:dead, zone:'dead', bpm:0, cue:'', detailOpen:false, songId:sid, isMeasure:true};
+    const b = {id, trackNum:'', name:'dead space', dur:dead, zone:'dead', bpm:0, cue:'', cadence:'', loadType:'hold', loadVal:1, detailOpen:false, songId:sid, isMeasure:true};
     blocks.push(b);
     const [row, detailRow] = buildBlockRow(id, b);
     area.appendChild(row);
@@ -481,7 +540,7 @@ function splitMeasure(id) {
   if (wrap) wrap.innerHTML = durationInput(id, b);
 
   const newId = ++blockId;
-  const newBlock = {id:newId, trackNum:b.trackNum, name:'', dur:remainder, zone:b.zone, bpm:b.bpm, cue:'', detailOpen:false, songId:b.songId, isMeasure:true};
+  const newBlock = {id:newId, trackNum:b.trackNum, name:'', dur:remainder, zone:b.zone, bpm:b.bpm, cue:'', cadence:b.cadence, loadType:b.loadType, loadVal:b.loadVal, detailOpen:false, songId:b.songId, isMeasure:true};
   blocks.splice(idx + 1, 0, newBlock);
 
   const [newRow, newDetailRow] = buildBlockRow(newId, newBlock);
@@ -497,6 +556,16 @@ function toggleDetail(id) {
   b.detailOpen = !b.detailOpen;
   document.getElementById('dr-' + id).classList.toggle('open', b.detailOpen);
   document.getElementById('ct-' + id)?.classList.toggle('active', b.detailOpen);
+}
+
+function updateLoadType(id, type) {
+  const b = blocks.find(x => x.id === id);
+  if (!b) return;
+  b.loadType = type;
+  const lt = LOAD_TYPES.find(o => o.key === type);
+  const valInput = document.getElementById('load-val-' + id);
+  if (valInput) valInput.style.display = lt?.hasVal ? 'block' : 'none';
+  render();
 }
 
 function updateBand(id, band) {
@@ -568,6 +637,21 @@ function render() {
         <div class="stat-unit">${pct}%</div>
       </div>`;
     }).join('');
+
+  let prevMult = null;
+  blocks.forEach(b => {
+    if (b.zone === 'dead') return;
+    const arrowEl = document.getElementById('cad-arrow-' + b.id);
+    if (!arrowEl) return;
+    if (!b.cadence) { arrowEl.textContent = ''; prevMult = null; return; }
+    const opt = CADENCE_OPTS.find(o => o.label === b.cadence);
+    const currMult = opt ? opt.mult : null;
+    if (prevMult === null || currMult === null) arrowEl.textContent = '';
+    else if (currMult > prevMult) arrowEl.textContent = '↑';
+    else if (currMult < prevMult) arrowEl.textContent = '↓';
+    else arrowEl.textContent = '→';
+    prevMult = currMult;
+  });
 
   document.getElementById('total-disp').textContent = total > 0 ? cfg.total(total) : '—';
   document.getElementById('total-label').textContent = cfg.totalLabel;
