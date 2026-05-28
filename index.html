@@ -238,8 +238,8 @@ const CADENCE_OPTS = [
 const LOAD_TYPES = [
   {key:'hold',   symbol:'—',    hasVal:false},
   {key:'base',   symbol:'BASE', hasVal:false},
-  {key:'add',    symbol:'↗',    hasVal:true },
-  {key:'remove', symbol:'↙',    hasVal:false},
+  {key:'add',    symbol:'↗',    hasVal:false},
+  {key:'remove', symbol:'↙',    hasVal:true },
   {key:'dump',   symbol:'↓',    hasVal:false},
 ];
 
@@ -645,8 +645,8 @@ function render() {
     if (b.zone === 'dead') return;
     switch (b.loadType) {
       case 'base':   loadAcc = 1; break;
-      case 'add':    loadAcc = (loadAcc ?? 0) + (b.loadVal || 1); break;
-      case 'remove': loadAcc = Math.max(0, (loadAcc ?? 0) - 1); break;
+      case 'add':    loadAcc = (loadAcc ?? 0) + 1; break;
+      case 'remove': loadAcc = Math.max(0, (loadAcc ?? 0) - (b.loadVal || 1)); break;
       case 'dump':   loadAcc = 0; break;
     }
     const totalEl = document.getElementById('load-total-' + b.id);
