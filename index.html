@@ -153,7 +153,10 @@
   <div class="btns-row">
     <button class="add-btn" onclick="addBlock()">+ ADD BLOCK</button>
     <button class="add-btn" onclick="showSongForm()">+ ADD SONG</button>
+    <button class="add-btn" onclick="exportCSV()" style="margin-left:auto">EXPORT CSV</button>
+    <button class="add-btn" onclick="document.getElementById('import-input').click()">IMPORT CSV</button>
   </div>
+  <input type="file" id="import-input" accept=".csv" style="display:none" onchange="importCSV(this.files[0]);this.value=''">`
 
   <div style="margin-bottom:20px;">
     <div class="tl-label">EFFORT SHAPE</div>
@@ -687,6 +690,88 @@ function render() {
   } else {
     timeWrap.style.display = 'none';
   }
+}
+
+function exportCSV() {
+  const releaseName = document.getElementById('rname').value.trim() || 'release';
+  const rows = [
+    ['UNIT', unit],
+    ['#', 'BLOCK/TRACK', 'BEATS', 'CADENCE', 'LOAD_TYPE', 'LOAD_VAL', 'ZONE', 'BPM', 'CUE'],
+  ];
+  blocks.forEach(b => rows.push([
+    b.trackNum, b.name, b.dur, b.cadence, b.loadType, b.loadVal, b.zone, b.bpm || '', b.cue
+  ]));
+  const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const a = Object.assign(document.createElement('a'), {
+    href: URL.createObjectURL(new Blob([csv], {type: 'text/csv'})),
+    download: releaseName + '.csv',
+  });
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function parseCSVLine(line) {
+  const result = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const c = line[i];
+    if (c === '"') { if (inQ && line[i+1] === '"') { cur += '"'; i++; } else inQ = !inQ; }
+    else if (c === ',' && !inQ) { result.push(cur); cur = ''; }
+    else cur += c;
+  }
+  result.push(cur);
+  return result;
+}
+
+function importCSV(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result.split('\n').map(l => l.trim()).filter(l => l);
+    if (lines.length < 2) return;
+
+    let dataStart = 0;
+    let importUnit = unit;
+    if (lines[0].startsWith('"UNIT"') || lines[0].startsWith('UNIT')) {
+      const parts = parseCSVLine(lines[0]);
+      importUnit = parts[1] || unit;
+      dataStart = 1;
+    }
+
+    // clear all blocks and songs
+    const area = document.getElementById('blocks');
+    blocks.forEach(b => { document.getElementById('br-'+b.id)?.remove(); document.getElementById('dr-'+b.id)?.remove(); });
+    songs.forEach(s => document.getElementById('sh-'+s.id)?.remove());
+    blocks = []; songs = []; blockId = 0; songId = 0;
+
+    // skip header row
+    lines.slice(dataStart + 1).forEach(line => {
+      const cols = parseCSVLine(line);
+      if (cols.length < 7) return;
+      const [trackNum, name, dur, cadence, loadType, loadVal, zone, bpm, cue] = cols;
+      const id = ++blockId;
+      const b = {
+        id, trackNum, name,
+        dur: parseFloat(dur) || 0,
+        cadence: cadence || '',
+        loadType: loadType || 'hold',
+        loadVal: parseInt(loadVal) || 1,
+        zone: zone || 'blue_mod',
+        bpm: parseFloat(bpm) || '',
+        cue: cue || '',
+        detailOpen: false, songId: null, isMeasure: false,
+      };
+      blocks.push(b);
+      const [row, detailRow] = buildBlockRow(id, b);
+      area.appendChild(row);
+      area.appendChild(detailRow);
+      applyZoneStyle(id);
+    });
+
+    if (importUnit !== unit) setUnit(importUnit);
+    else render();
+  };
+  reader.readAsText(file);
 }
 
 document.getElementById('zone-legend').innerHTML = Object.entries(COLOR_BANDS).map(([band, cb]) => {
